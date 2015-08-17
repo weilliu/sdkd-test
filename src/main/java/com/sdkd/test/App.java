@@ -3,6 +3,10 @@ package com.sdkd.test;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import org.glassfish.jersey.servlet.ServletContainer;
+
+
+
  
 public class App {
     public static void main(String[] args) throws Exception {
@@ -18,9 +22,17 @@ public class App {
         jerseyServlet.setInitOrder(0);
  
         // Tells the Jersey Servlet which REST service/class to load.
-        jerseyServlet.setInitParameter(
-           "jersey.config.server.provider.classnames",
-           EntryPoint.class.getCanonicalName());
+//        jerseyServlet.setInitParameter(
+//           "jersey.config.server.provider.classnames",
+//           EntryPoint.class.getCanonicalName());
+        
+//        jerseyServlet.setInitParameter(
+//                "jersey.config.server.provider.classnames",
+//                Calculator.class.getCanonicalName());
+        
+ 
+        jerseyServlet.setInitParameter("jersey.config.server.provider.packages", "com.sdkd.test");//Set the package where the services reside
+
  
         try {
             jettyServer.start();
@@ -28,6 +40,7 @@ public class App {
         } finally {
             jettyServer.destroy();
         }
+        
     
     }
 }
